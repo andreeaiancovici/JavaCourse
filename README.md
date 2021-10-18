@@ -1,7 +1,7 @@
 # Java Daily
 A short Java journey for beginners and advanced developers.
 
-##Java comparing
+### Java comparing
 - Primitive and Wrappers
 - Objects
 - null
