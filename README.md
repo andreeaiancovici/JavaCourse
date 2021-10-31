@@ -7,3 +7,5 @@ A short Java journey for beginners and advanced developers.
 - null
 - == vs. equals
 - static Object.equals
+- Comparable Interface
+- Comparator Interface
