@@ -2,14 +2,18 @@ package core.examples.comparing;
 
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements Comparable<Animal> {
 
-    private int age;
+    private Integer age;
     private String name;
 
     public Animal(int age, String name) {
         this.age = age;
         this.name = name;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     @Override
@@ -25,6 +29,11 @@ public class Animal {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Animal animal = (Animal) o;
-        return age == animal.age && Objects.equals(name, animal.name);
+        return age.equals(animal.age) && Objects.equals(name, animal.name);
+    }
+
+    @Override
+    public int compareTo(Animal o) {
+        return this.age.compareTo(o.age);
     }
 }

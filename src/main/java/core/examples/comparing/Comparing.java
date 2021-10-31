@@ -1,60 +1,157 @@
 package core.examples.comparing;
 
-public class Comparing {
-    public static final String LIGHT_BULB = "\uD83D\uDCA1";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_RESET = "\u001B[0m";
+import core.examples.Example;
 
-    public static void main(String[] args) {
-        int x = 1, y = 1;
-        Integer xWithNew = new Integer(x), yWithNew = new Integer(y);
-        Integer xWithValueOf = Integer.valueOf(x), yWithValueOf = Integer.valueOf(y);
-        Animal xAnimal = new Animal(2, "cat"), yAnimal = new Animal(2, "cat");
+import static cmd.Commands.*;
 
-        System.out.println(LIGHT_BULB + " Comparing primitives means comparing directly the values");
-        System.out.println(ANSI_RED + "Values are compared directly" + ANSI_RESET);
-        System.out.printf("byte: %d == %d is %s\n", (byte) x, (byte) y, (byte) x == (byte) y);
-        System.out.printf("short: %d == %d is %s\n", (short) x, (short) y, (short) x == (short) y);
-        System.out.printf("int: %d == %d is %s\n", x, y, x == y);
-        System.out.printf("long: %d == %d is %s\n", (long) x, (long) y, (long) x == (long) y);
-        System.out.printf("float: %f == %f is %s\n", (float) x, (float) y, (float) x == (float) y);
-        System.out.printf("double: %f == %f is %s\n", (double) x, (double) y, (double) x == (double) y);
-        System.out.printf("boolean: %b == %b is %s\n", true, true, true == true);
-        System.out.printf("char: %c == %c is %s\n", (char) x, (char) y, (char) x == (char) y);
+public class Comparing implements Example {
 
-        System.out.println("\n" + LIGHT_BULB + " Comparing primitives with wrapper counterpart");
-        System.out.println(ANSI_RED + "Values are compared directly due to auto-unboxing applied to the wrapper" + ANSI_RESET);
-        System.out.printf("%d == %d is %s\n", x, yWithNew, x == yWithNew);
+    @Override
+    public void execute() {
+        comparingPrimitives(1, 1);
 
-        System.out.println("\n" + LIGHT_BULB + " Comparing wrapper objects created with new");
-        System.out.println(ANSI_RED + "Address is compared here" + ANSI_RESET);
-        System.out.printf("%d == %d is %s\n", xWithNew, yWithNew, xWithNew == yWithNew);
+        pressEnterKeyToContinue();
+        //noinspection CachedNumberConstructorCall
+        comparingPrimitivesWithWrapperCounterpart(1, new Integer(1));
 
-        System.out.println("\n" + LIGHT_BULB + " Comparing wrapper objects created with valueOf");
-        System.out.println(ANSI_RED + "valueOf returns the same object from and internal cache" + ANSI_RESET);
-        System.out.println(ANSI_RED + "The same logic applies for String" + ANSI_RESET);
-        System.out.printf("%d == %d is %s\n", xWithValueOf, yWithValueOf, xWithValueOf == yWithValueOf);
+        pressEnterKeyToContinue();
+        //noinspection CachedNumberConstructorCall
+        comparingWrappersCreatedWithNew(new Integer(1), new Integer(1));
 
-        System.out.println("\n" + LIGHT_BULB + " Comparing wrapper objects created with new");
-        System.out.println(ANSI_RED + "Equals will compare un-boxed wrapper value" + ANSI_RESET);
-        System.out.printf("%d.equals(%d) is %s\n", xWithNew, yWithNew, xWithNew.equals(yWithNew));
+        pressEnterKeyToContinue();
 
-        System.out.println("\n" + LIGHT_BULB + " Comparing null");
-        System.out.printf("%s == %s is %s\n", null, null, null == null);
+        comparingWrappersCreatedWithValueOf(1, 1);
 
-        System.out.println("\n" + LIGHT_BULB + " Comparing objects");
-        System.out.println(ANSI_RED + "Address is compared here (shallow)" + ANSI_RESET);
-        System.out.printf("%s == %s is %s\n", xAnimal, yAnimal, xAnimal == yAnimal);
+        pressEnterKeyToContinue();
 
-        System.out.println("\n" + LIGHT_BULB + " Comparing objects");
-        System.out.println(ANSI_RED + "Properties are compared here (deep)" + ANSI_RESET);
-        System.out.printf("%s.equals(%s) is %s\n", xAnimal, yAnimal, xAnimal.equals(yAnimal));
+        comparingObjects(new Animal(2, "cat"), new Animal(2, "cat"));
+    }
 
-        System.out.println("\n" + LIGHT_BULB + " Static Objects.equals");
-        System.out.println(ANSI_RED + "Object.equals(name, this.name) is used for comparing properties easy when overriding " +
-                "(instead of name == null ? that.name == null : name.equals(that.name);)" + ANSI_RESET);
+    @SuppressWarnings("UnnecessaryLocalVariable")
+    private void comparingPrimitives(int x, int y) {
+        displayTitle("Comparing Primitives");
+        displayNoteToRemind("Primitive values are compared directly by their value.");
 
-        System.out.println("\n" + LIGHT_BULB + " Comparable Interface");
-        //TODO
+        displayInfo("primitives are byte");
+        byte xByte = (byte) x;
+        byte yByte = (byte) y;
+        displayExample(String.format("%d == %d is %s", xByte, yByte, xByte == yByte));
+
+        displayInfo("short");
+        short xShort = (short) x;
+        short yShort = (short) y;
+        displayExample(String.format("%d == %d is %s", xShort, yShort, xShort == yShort));
+
+        displayInfo("int");
+        displayExample(String.format("%d == %d is %s", x, y, x == y));
+
+        displayInfo("long");
+        long xLong = x;
+        long yLong = y;
+        displayExample(String.format("%d == %d is %s", xLong, yLong, xLong == yLong));
+
+        displayInfo("float");
+        float xFloat = x;
+        float yFloat = y;
+        displayExample(String.format("%f == %f is %s", xFloat, yFloat, xFloat == yFloat));
+
+        displayInfo("double");
+        double xDouble = x;
+        double yDouble = y;
+        displayExample(String.format("%f == %f is %s", xDouble, yDouble, xDouble == yDouble));
+
+        displayInfo("boolean");
+        //noinspection PointlessBooleanExpression
+        displayExample(String.format("%b == %b is %s", true, true, true == true));
+
+        displayInfo("char");
+        char xChar = (char) x;
+        char yChar = (char) y;
+        displayExample(String.format("%c == %c is %s", xChar, yChar, xChar == yChar));
+    }
+
+    private void comparingPrimitivesWithWrapperCounterpart(int x, Integer y) {
+        displayTitle("Comparing Primitives with Wrapper counterpart");
+        displayNoteToRemind("Values are compared directly due to auto-unboxing applied to the wrapper.");
+        displayExample(String.format("%d == %d is %s", x, y, x == y));
+    }
+
+    private void comparingWrappersCreatedWithNew(Integer x, Integer y) {
+        displayTitle("Comparing Wrappers created with new");
+        displayNoteToRemind("== will compare wrapper object address.");
+        displayNoteToRemind("equals will compare un-boxed wrapper object value.");
+
+        displayInfo("==");
+        //noinspection NumberEquality
+        displayExample(String.format("%d == %d is %s", x, y, x == y));
+
+        displayInfo("equals");
+        displayExample(String.format("%d.equals(%d) is %s", x, y, x.equals(y)));
+    }
+
+    @SuppressWarnings("NumberEquality")
+    private void comparingWrappersCreatedWithValueOf(int x, int y) {
+        displayTitle("Comparing Wrappers created with valueOf");
+        displayNoteToRemind("valueOf returns the same object from internal cache for: Byte, Short, Integer, Long, Boolean");
+        displayNoteToRemind("valueOf returns a new object for: Float, Double");
+
+        displayInfo("Byte");
+        Byte xByteWithValueOf = Byte.valueOf((byte) x);
+        Byte yByteWithValueOf = Byte.valueOf((byte) y);
+        displayExample(String.format("%d == %d is %s", xByteWithValueOf, yByteWithValueOf, xByteWithValueOf == yByteWithValueOf));
+
+        displayInfo("Short");
+        Short xShortWithValueOf = Short.valueOf((short) x);
+        Short yShortWithValueOf = Short.valueOf((short) y);
+        displayExample(String.format("%d == %d is %s", xShortWithValueOf, yShortWithValueOf, xShortWithValueOf == yShortWithValueOf));
+
+        displayInfo("Integer");
+        Integer xIntegerWithValueOf = Integer.valueOf(x);
+        Integer yIntegerWithValueOf = Integer.valueOf(y);
+        displayExample(String.format("%d == %d is %s", xIntegerWithValueOf, yIntegerWithValueOf, xIntegerWithValueOf == yIntegerWithValueOf));
+
+        displayInfo("Long");
+        Long xLongWithValueOf = Long.valueOf(x);
+        Long yLongWithValueOf = Long.valueOf(y);
+        displayExample(String.format("%d == %d is %s", xLongWithValueOf, yLongWithValueOf, xLongWithValueOf == yLongWithValueOf));
+
+        displayInfo("Float");
+        Float xFloatWithValueOf = Float.valueOf(x);
+        Float yFloatWithValueOf = Float.valueOf(y);
+        displayExample(String.format("%f == %f is %s", xFloatWithValueOf, yFloatWithValueOf, xFloatWithValueOf == yFloatWithValueOf));
+
+        displayInfo("Double");
+        Double xDoubleWithValueOf = Double.valueOf(x);
+        Double yDoubleWithValueOf = Double.valueOf(y);
+        displayExample(String.format("%f == %f is %s", xDoubleWithValueOf, yDoubleWithValueOf, xDoubleWithValueOf == yDoubleWithValueOf));
+
+        displayInfo("Boolean");
+        Boolean xBooleanWithValueOf = Boolean.valueOf(true);
+        Boolean yBooleanWithValueOf = Boolean.valueOf(true);
+        displayExample(String.format("%b == %b is %s", xBooleanWithValueOf, yBooleanWithValueOf, xBooleanWithValueOf == yBooleanWithValueOf));
+
+        displayInfo("Character");
+        Character xCharacterWithValueOf = Character.valueOf((char) x);
+        Character yCharacterWithValueOf = Character.valueOf((char) y);
+        displayExample(String.format("%c == %c is %s", xCharacterWithValueOf, yCharacterWithValueOf, xCharacterWithValueOf == yCharacterWithValueOf));
+    }
+
+    private void comparingObjects(Animal x, Animal y) {
+        displayTitle("Comparing Objects");
+        displayNoteToRemind("Shallow comparison uses object address.");
+        displayNoteToRemind("Deep comparison (equals) uses object properties.");
+        displayNoteToRemind("Object.equals is used for comparing properties easy when overriding.");
+
+
+        displayInfo("null");
+        displayExample(String.format("%s == %s is %s", null, null, null == null));
+
+        displayInfo("shallow");
+        displayExample(String.format("%s == %s is %s", x, y, x == y));
+
+        displayInfo("deep");
+        displayExample(String.format("%s.equals(%s) is %s", x, y, x.equals(y)));
+
+        displayInfo("Object.equals(name, this.name) instead of name == null ? that.name == null : name.equals(that.name);");
     }
 }
