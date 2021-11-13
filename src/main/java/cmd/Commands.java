@@ -1,5 +1,7 @@
 package cmd;
 
+import chapter.ChapterEnum;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,15 +12,14 @@ public class Commands {
 
     private static final Scanner console = new Scanner(System.in);
     private static final String TITLE_FORMAT = LIGHT_BULB + " %s%n";
-    private static final String NOTE_FORMAT = ANSI_RED + "%s" + ANSI_RESET + "%n";
+    private static final String NOTE_FORMAT = ANSI_GREEN + "%s" + ANSI_RESET + "%n";
     private static final String INFO_FORMAT = ANSI_BLUE + "%s" + ANSI_RESET + "%n";
+    private static final String TIP_FORMAT = ANSI_RED + "%s" + ANSI_RESET + "%n";
 
-    public static void displayCategory() {
+    public static void displayChapter() {
         System.out.println("Choose one of the following topics to learn about:");
 
-        System.out.println("1. Comparing");
-        System.out.println("2. Comparable Interface");
-        System.out.println("3. Comparator Interface");
+        System.out.println(ChapterEnum.COMPARING.getCode() + ". Comparing");
     }
 
     public static int getInteger() {
@@ -40,6 +41,11 @@ public class Commands {
     public static void displayInfo(String info) {
         System.out.println();
         System.out.printf(INFO_FORMAT, info);
+    }
+
+    public static void displayTip(String tip) {
+        System.out.println();
+        System.out.printf(TIP_FORMAT, tip);
     }
 
     public static void displayExample(String example) {

@@ -1,21 +1,21 @@
 package main;
 
-import core.examples.ExampleEnum;
-import core.examples.ExampleFactory;
+import chapter.ChapterEnum;
+import chapter.ChapterFactory;
 
-import static cmd.Commands.displayCategory;
+import static cmd.Commands.displayChapter;
 import static cmd.Commands.getInteger;
 
 public class Main {
 
     public static void main(String[] args) {
-        ExampleFactory exampleFactory = new ExampleFactory();
+        ChapterFactory chapterFactory = new ChapterFactory();
 
-        displayCategory();
+        displayChapter();
 
         int option = getInteger();
 
-        exampleFactory.getExample(ExampleEnum.getExampleEnum(option))
-                .execute();
+        chapterFactory.getChapter(ChapterEnum.getChapterEnum(option))
+                .display();
     }
 }

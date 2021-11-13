@@ -17,13 +17,19 @@ public class ComparatorInterface implements Example {
         displayNoteToRemind("We can define a generic typed Comparator which compares properties of an object in any order we prefer.");
         displayNoteToRemind("For a class we can define as many comparators as we like.");
 
-        Animal cat = new Animal(2, "cat"), dog = new Animal(2, "dog"), pig = new Animal(2, "pig");
+        Animal cat = new Animal(2, "cat");
+        Animal dog = new Animal(2, "dog");
+        Animal pig = new Animal(3, "pig");
+        Animal mouse = new Animal(1, "mouse");
 
-        List<Animal> animals = Arrays.asList(cat, dog, pig);
+        displayInfo("Let's define animals array:");
+        List<Animal> animals = Arrays.asList(cat, dog, pig, mouse);
         display(animals);
 
+        System.out.println();
+
         Comparator<Animal> compareByAnimalName = Comparator.comparing(Animal::getAge);
-        displayInfo("Using the following comparator compareByAnimalName = Comparator.comparing(Animal::getAge), the array looks like");
+        displayInfo("Using the following comparator compareByAnimalName = Comparator.comparing(Animal::getAge), the array looks like:");
         animals.sort(compareByAnimalName);
         display(animals);
     }
